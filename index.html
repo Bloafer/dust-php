@@ -2,14 +2,13 @@
 <html>
   <head lang="en">
     <title>Dust PHP</title>
-    <link href="bootstrap.min.css" rel="stylesheet" />
-    <link href="dust.css" rel="stylesheet" />
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="xcss/dust.css" rel="stylesheet" />
   </head>
   <body>
     <div class="container">
       <h1>Dust PHP <small>A lightweight, powerful templating engine in PHP</small></h1>
-      <iframe src="http://ghbtns.com/github-btn.html?user=cretz&repo=dust-php&type=watch"
+      <iframe src="http://ghbtns.com/github-btn.html?user=Bloafer&repo=dust-php&type=watch"
   allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20" style="float: right"></iframe>
       <hr />
       <h3>Features</h3>
@@ -27,12 +26,12 @@
         <dt>Extensible</dt>
         <dd>Everything from the parser to the helpers/filters can be customized. Codebase open and friendly.</dd>
         <dt>Open</dt>
-        <dd>MIT licensed with all development handled on <a href="https://github.com/cretz/dust-php">GitHub</a>.</dd>
+        <dd>MIT licensed with all development handled on <a href="https://github.com/Bloafer/dust-php">GitHub</a>.</dd>
       </dl>
 
       <a class="sectionLink" id="Overview" href="#Overview"><h3>Overview</h3></a>
       <p>
-        Dust PHP is a PHP implementation of LinkedIn's <a href="http://linkedin.github.com/dustjs/">Dust</a> (fork) template engine written in JavaScript. Dust PHP is written in <a href="http://pratphall.org">Pratphall</a>. It was built while searching for a templating language that was more powerful than mustache, concise, built in JavaScript, and contained idioms easily translatable to PHP. This is the result. It is MIT licensed. Checkout the code, submit issues, and send pull requests on the <a href="https://github.com/cretz/dust-php">GitHub page</a>. PHP 5.4 is required to use Dust PHP.
+        Dust PHP is a PHP implementation of LinkedIn's <a href="http://linkedin.github.com/dustjs/">Dust</a> (fork) template engine written in JavaScript. <strike>Dust PHP is written in Pratphall</strike>. It was built while searching for a templating language that was more powerful than mustache, concise, built in JavaScript, and contained idioms easily translatable to PHP. This is the result. It is MIT licensed. Checkout the code, submit issues, and send pull requests on the <a href="https://github.com/Bloafer/dust-php">GitHub page</a>. PHP 5.4 is required to use Dust PHP.
       </p>
       <p>The rest of this manual is based on the <a href="https://github.com/linkedin/dustjs/wiki/Dust-Tutorial">Dust tutorial</a> from LinkedIn and uses examples/text from it. The LinkedIn tutorial is recommended reading to understand the JavaScript side and how similar the PHP side is.</p>
       <p>
@@ -47,7 +46,7 @@
 &lt;/ul></code></pre>
       </div>
       <ul class="nav nav-tabs" style="border-bottom: none; margin-bottom: 0px">
-        <li>All of these contexts are the same to Dust PHP:</li>
+        <li>All of these contexts are the same to Dust PHP: </li>
         <li class="active"><a href="#array" data-toggle="tab" style="padding-top: 0px">Array</a></li>
         <li><a href="#dynamicObject" data-toggle="tab" style="padding-top: 0px">Dynamic Object</a></li>
         <li><a href="#json" data-toggle="tab" style="padding-top: 0px">JSON</a></li>
@@ -163,17 +162,17 @@ $context = new Context();</code></pre>
 
     <a class="sectionLink" id="Usage" href="#Usage"><h3>Usage</h3></a>
     <p>
-      To install, simply require <a href="https://packagist.org/packages/dust-php/dust-php">dust-php/dust-php</a> in your <a href="http://getcomposer.org">composer</a>.json like so:
+      To install, simply require <a href="https://packagist.org/packages/bloafer/dust-php">bloafer/dust-php</a> in your <a href="http://getcomposer.org">composer</a>.json like so:
     </p>
     <div class="code">
       <pre><code data-language="javascript">{
     "require": {
-        "dust-php/dust-php": "0.1.0"
+        "bloafer/dust-php": "0.1.*"
     }
 }</code></pre>
     </div>
     <p>
-      Then it can be used in the project very easily. You can also download a source release <a href="https://github.com/cretz/dust-php/tags">here</a>.
+      Then it can be used in the project very easily. You can also download a source release <a href="https://github.com/Bloafer/dust-php/tags">here</a>.
     </p>
     <p>
       Dust has a very simple API that makes it easy to render templates. The following creates a new Dust PHP parser/renderer and runs a simple template:
@@ -946,11 +945,15 @@ echo($dust->render('test', $context));</code></pre>
     </p>
     <h5>Building Dust PHP</h5>
     <p>
-      Dust is written in <a href="http://pratphall.org">Pratphall</a>. To compile, get the code from <a href="http://github.com/cretz/dust-php">GitHub</a> and run <code>npm install</code> which should install all dev dependencies. The compilation uses Jake, so simply running <code>./node_modules/.bin/jake build</code> will do the build. Ignore warnings about "unknown type of call" in the test code (it's the code that translates the spec from dustjs). Specifically, the build will clear the src/ and tests/ folders, then compile the code from pratphall/ into these two folders.
+      <strike>Dust is written in Pratphall</strike>. To compile, get the code from <a href="http://github.com/Bloafer/dust-php">GitHub</a> and run <code>npm install</code> which should install all dev dependencies. The compilation uses Jake, so simply running <code>./node_modules/.bin/jake build</code> will do the build. Ignore warnings about "unknown type of call" in the test code (it's the code that translates the spec from dustjs). Specifically, the build will clear the src/ and tests/ folders, then compile the code from pratphall/ into these two folders.
     </p>
     <h5>Release Notes</h5>
     <p>
       <dl>
+        <dt>0.1.1</dt>
+        <dd>
+          Added Ne helper, added required tests, changed URL's, removed broken links
+        </dd>
         <dt>0.1.0</dt>
         <dd>
           Initial release
@@ -958,23 +961,20 @@ echo($dust->render('test', $context));</code></pre>
       </dl>
     </p>
     </div>
-    <script src="jquery.min.js"></script>
-    <script src="bootstrap.min.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <!--[if gt IE 8]>-->
-    <script src="rainbow-custom.min.js"></script>
+    <script src="js/rainbow-custom.min.js"></script>
     <!--[endif]>-->
-    <script type="text/javascript">
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-37431760-2']);
-  _gaq.push(['_trackPageview']);
+  ga('create', 'UA-87919656-1', 'auto');
+  ga('send', 'pageview');
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-    </script>
+</script>
   </body>
 </html>
