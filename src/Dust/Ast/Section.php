@@ -2,20 +2,20 @@
 namespace Dust\Ast;
 
 class Section extends Part {
-    public static $acceptableTypes = ['#', '?', '^', '<', '+', '@', '%'];
-    
+    public static $acceptableTypes = array('#', '?', '^', '<', '+', '@', '%');
+
     public $type;
-    
+
     public $identifier;
-    
+
     public $context;
-    
+
     public $parameters;
-    
+
     public $body;
-    
+
     public $bodies;
-    
+
     public function __toString() {
         $str = '{' . $this->type . $this->identifier;
         if ($this->context != null) $str .= $this->context;
@@ -32,5 +32,5 @@ class Section extends Part {
         $str .= '{/' . $this->identifier;
         return $str;
     }
-    
+
 }

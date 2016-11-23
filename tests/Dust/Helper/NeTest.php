@@ -8,7 +8,7 @@ class NeTest extends ComparisonTestBase {
         $this->assertValidResult(12, 12, false);
         $this->assertValidResult(12, '12', false);
         $this->assertValidResult(12, false, true);
-        $this->assertValidResult([1, 2], [1, 2], false);
+        $this->assertValidResult(array(1, 2), array(1, 2), false);
         $this->assertValidResult('FOO', 'foo', true);
     }
 

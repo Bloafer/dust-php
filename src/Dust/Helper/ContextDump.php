@@ -10,7 +10,7 @@ class ContextDump {
         //ok, basically we're gonna give parent object w/ two extra values, "__forcedParent__", "__child__", and "__params__"
         $getContext = function (Evaluate\Context $ctx) use ($current, &$getContext) {
             //first parent
-            $parent = !$current && $ctx->parent != null ? $getContext($ctx->parent) : (object)[];
+            $parent = !$current && $ctx->parent != null ? $getContext($ctx->parent) : (object)array();
             //now start adding pieces
             $parent->__child__ = $ctx->head == null ? null : $ctx->head->value;
             if ($ctx->head != null && $ctx->head->forcedParent !== null) {
@@ -28,5 +28,5 @@ class ContextDump {
         echo($str . "\n");
         return $chunk;
     }
-    
+
 }

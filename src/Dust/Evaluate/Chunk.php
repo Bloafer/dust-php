@@ -4,48 +4,48 @@ namespace Dust\Evaluate;
 use Dust\Ast;
 class Chunk {
     public $evaluator;
-    
+
     public $out = '';
-    
+
     public $tapStack;
-    
+
     public $pendingNamedBlocks;
-    
+
     public $pendingNamedBlockOffset = 0;
-    
+
     public $setNamedStrings;
-    
+
     public function __construct(Evaluator $evaluator) {
         $this->evaluator = $evaluator;
-        $this->pendingNamedBlocks = [];
-        $this->setNamedStrings = [];
+        $this->pendingNamedBlocks = array();
+        $this->setNamedStrings = array();
     }
-    
+
     public function newChild() {
         $chunk = new Chunk($this->evaluator);
         $chunk->tapStack = &$this->tapStack;
         $chunk->pendingNamedBlocks = &$this->pendingNamedBlocks;
         return $chunk;
     }
-    
+
     public function write($str) {
         $this->out .= $str;
         return $this;
     }
-    
+
     public function markNamedBlockBegin($name) {
         if (!array_key_exists($name, $this->pendingNamedBlocks)) {
-            $this->pendingNamedBlocks[$name] = [];
+            $this->pendingNamedBlocks[$name] = array();
         }
-        $block = (object)["begin" => strlen($this->out), "end" => null];
+        $block = (object)array("begin" => strlen($this->out), "end" => null);
         $this->pendingNamedBlocks[$name][] = $block;
         return $block;
     }
-    
+
     public function markNamedBlockEnd($block) {
         $block->end = strlen($this->out);
     }
-    
+
     public function replaceNamedBlock($name) {
         //we need to replace inside of chunk the begin/end
         if (array_key_exists($name, $this->pendingNamedBlocks) && array_key_exists($name, $this->setNamedStrings)) {
@@ -69,7 +69,7 @@ class Chunk {
             $this->pendingNamedBlockOffset += strlen($this->out) - $preCount;
         }
     }
-    
+
     public function setAndReplaceNamedBlock(Ast\Section $section, Context $ctx) {
         $output = '';
         //if it has no body, we don't do anything
@@ -82,12 +82,12 @@ class Chunk {
         //try and replace
         $this->replaceNamedBlock($section->identifier->key);
     }
-    
+
     public function setError($error, Ast\Body $ast = null) {
         $this->evaluator->error($ast, $error);
         return $this;
     }
-    
+
     public function render(Ast\Body $ast, Context $context) {
         $text = $this;
         if ($ast != null) {
@@ -100,15 +100,15 @@ class Chunk {
         }
         return $text;
     }
-    
+
     public function tap(callable $callback) {
         $this->tapStack[] = $callback;
         return $this;
     }
-    
+
     public function untap() {
         array_pop($this->tapStack);
         return $this;
     }
-    
+
 }

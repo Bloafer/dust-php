@@ -43,21 +43,21 @@ class FilesystemTest extends DustTestBase {
         //just run the child, it should auto-find the base
         $compiled = $this->dust->compileFile(FilesystemTest::$dir . '/childTemplate');
         $expected = "before\noneDefault...newTwo...newThree\nafter";
-        $this->assertEquals($expected, $this->dust->renderTemplate($compiled, (object)[]));
+        $this->assertEquals($expected, $this->dust->renderTemplate($compiled, (object)array()));
     }
 
     public function testIncludedDirectories() {
         //add the dir
         $this->dust->includedDirectories[] = FilesystemTest::$dir;
         //now have something call the child
-        $this->assertTemplate("Begin - before\noneDefault...newTwo...newThree\nafter - End", 'Begin - {>childTemplate/} - End', (object)[]);
+        $this->assertTemplate("Begin - before\noneDefault...newTwo...newThree\nafter - End", 'Begin - {>childTemplate/} - End', (object)array());
     }
 
     public function testCustomFileExtension() {
-        $dust = new Dust(null, null, [ 'extension' => 'tl' ]);
+        $dust = new Dust(null, null, array('extension' => 'tl'));
         $dust->includedDirectories[] = FilesystemTest::$dir;
         $template = $dust->compile('{>simpleTemplate/}');
-        $render = $dust->renderTemplate($template, (object)[]);
+        $render = $dust->renderTemplate($template, (object)array());
         $this->assertEquals($render, "line1\nline2");
     }
 

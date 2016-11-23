@@ -6,23 +6,23 @@ class StandardTest extends DustTestBase {
         $template = '{title}' . '<ul>' . '{#names}' . '  <li>{name}</li>{~n}' . '{/names}' . '</ul>';
         $expected = 'Famous People' . '<ul>' . "  <li>Larry</li>\n" . "  <li>Curly</li>\n" . "  <li>Moe</li>\n" . '</ul>';
         //ok, test w/ associative array
-        $this->assertTemplate($expected, $template, [
+        $this->assertTemplate($expected, $template, array(
             "title" => 'Famous People',
-            "names" => [
-                ["name" => 'Larry'],
-                ["name" => 'Curly'],
-                ["name" => 'Moe']
-            ]
-        ]);
+            "names" => array(
+                array("name" => 'Larry'),
+                array("name" => 'Curly'),
+                array("name" => 'Moe')
+            )
+        ));
         //dynamic object
-        $this->assertTemplate($expected, $template, (object)[
+        $this->assertTemplate($expected, $template, (object)array(
             "title" => 'Famous People',
-            "names" => [
-                (object)["name" => 'Larry'],
-                (object)["name" => 'Curly'],
-                (object)["name" => 'Moe']
-            ]
-        ]);
+            "names" => array(
+                (object)array("name" => 'Larry'),
+                (object)array("name" => 'Curly'),
+                (object)array("name" => 'Moe')
+            )
+        ));
         //json (basically same as above)
         $this->assertTemplate($expected, $template, json_decode('{' . '"title": "Famous People",' . '"names": [' . '{ "name": "Larry" },' . '{ "name": "Curly" },' . '{ "name": "Moe" }' . ']' . '}'));
         //class
@@ -30,11 +30,11 @@ class StandardTest extends DustTestBase {
     }
 
     public function testArrayAccess() {
-        $this->assertTemplate('123', '{#items}{.}{/items}', (object)["items" => new \ArrayObject([1, 2, 3])]);
+        $this->assertTemplate('123', '{#items}{.}{/items}', (object)array("items" => new \ArrayObject(array(1, 2, 3))));
     }
 
     public function testStringIndex() {
-        $this->assertTemplate('a => b,2 => c,foo => blah', '{#items}{$idx} => {.}{@sep},{/sep}{/items}', ["items" => ["a" => 'b', 2 => 'c', "foo" => 'blah']]);
+        $this->assertTemplate('a => b,2 => c,foo => blah', '{#items}{$idx} => {.}{@sep},{/sep}{/items}', array("items" => array("a" => 'b', 2 => 'c', "foo" => 'blah')));
     }
 
     public function testAutoloaderOverride() {
@@ -46,17 +46,17 @@ class StandardTest extends DustTestBase {
             return $this->dust->compile('{#children}Child: {.}, {/children}');
         };
         //now run partial w/ expectation
-        $this->assertTemplate('Before, Child: foo, Child: bar, After', '{#item}Before, {>testCustom/}After{/item}', (object)[
-            "item" => (object)[
-                "children" => ['foo', 'bar']
-            ]
-        ]);
+        $this->assertTemplate('Before, Child: foo, Child: bar, After', '{#item}Before, {>testCustom/}After{/item}', (object)array(
+            "item" => (object)array(
+                "children" => array('foo', 'bar')
+            )
+        ));
         $this->assertTrue($autoloaderInvoked);
     }
 
     public function testCustomFilter() {
         $this->dust->filters['stripTags'] = new StripTagsFilter();
-        $this->assertTemplate('Value: foo, bar', 'Value: {contents|stripTags}', (object)["contents" => '<div>foo, <br /><strong>bar</strong></div>']);
+        $this->assertTemplate('Value: foo, bar', 'Value: {contents|stripTags}', (object)array("contents" => '<div>foo, <br /><strong>bar</strong></div>'));
     }
 
     public function testCustomHelper() {
@@ -75,7 +75,7 @@ class StandardTest extends DustTestBase {
             return $chunk->write(substr($str, $begin));
         };
         //test some things (kinda taken from PHP manual)
-        $this->assertTemplate('bcdef,bcd,abcd,abcdef,bc', '{@substr str="abcdef" begin=1 /},' . '{@substr str="abcdef" begin=1 len=3 /},' . '{@substr str="abcdef" len=4 /},' . '{@substr str="abcdef" len=8 /},' . '{@substr str="abcdef" begin=1 end=3 /}', (object)[]);
+        $this->assertTemplate('bcdef,bcd,abcd,abcdef,bc', '{@substr str="abcdef" begin=1 /},' . '{@substr str="abcdef" begin=1 len=3 /},' . '{@substr str="abcdef" len=4 /},' . '{@substr str="abcdef" len=8 /},' . '{@substr str="abcdef" begin=1 end=3 /}', (object)array());
     }
 
     public function testIssetAccess() {
@@ -84,7 +84,7 @@ class StandardTest extends DustTestBase {
 
     public function testCustomHelperNotFound() {
         try {
-            $this->assertTemplate('NULL', '{@customHelper param=myParam/}', (object)[]);
+            $this->assertTemplate('NULL', '{@customHelper param=myParam/}', (object)array());
         } catch (Evaluate\EvaluateException $exc) {
             $this->assertEquals('Unable to find helper "customHelper"', $exc->getMessage());
         }

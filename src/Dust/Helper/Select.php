@@ -8,12 +8,12 @@ class Select {
         if (!isset($params->{'key'})) $chunk->setError('Key parameter required');
         $key = $params->{'key'};
         //just eval body with some special state
-        return $chunk->render($bodies->block, $context->pushState(new Evaluate\State((object)[
-            '__selectInfo' => (object)[
+        return $chunk->render($bodies->block, $context->pushState(new Evaluate\State((object)array(
+            '__selectInfo' => (object)array(
                 'selectComparisonSatisfied' => false,
                 'key' => $key
-            ]
-        ])));
+            )
+        ))));
     }
-    
+
 }

@@ -3,14 +3,14 @@ namespace Dust\Filter;
 
 class EncodeUri implements Filter {
     public static $replacers;
-    
+
     public function apply($item) {
         if (!is_string($item)) return $item;
         return strtr(rawurlencode($item), EncodeUri::$replacers);
     }
-    
+
 }
-EncodeUri::$replacers = [
+EncodeUri::$replacers = array(
     '%2D' => '-',
     '%5F' => '_',
     '%2E' => '.',
@@ -31,4 +31,4 @@ EncodeUri::$replacers = [
     '%2B' => '+',
     '%24' => '$',
     '%23' => '#'
-];
+);

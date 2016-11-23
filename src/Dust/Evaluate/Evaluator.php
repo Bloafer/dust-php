@@ -236,7 +236,7 @@ class Evaluator {
     }
 
     public function evaluateParameters(array $params, Context $ctx) {
-        $ret = [];
+        $ret = array();
         foreach ($params as $value) {
             if ($value instanceof Ast\NumericParameter) {
                 if (strpos($value->value, '.') === false) {
@@ -325,7 +325,7 @@ class Evaluator {
             $reflected = new \ReflectionFunction($callback);
         }
         $paramCount = $reflected->getNumberOfParameters();
-        $args = [];
+        $args = array();
         if ($paramCount > 0) {
             $args[] = $chunk;
             if ($paramCount > 1) {
