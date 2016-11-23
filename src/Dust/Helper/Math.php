@@ -41,11 +41,11 @@ class Math {
         if ($bodies == null || $bodies->block == null) return $chunk->write($result);
         else {
             //just eval body with some special state
-            return $chunk->render($bodies->block, $context->pushState(new Evaluate\State((object)[
-                '__selectInfo' => (object)['selectComparisonSatisfied' => false],
+            return $chunk->render($bodies->block, $context->pushState(new Evaluate\State((object)array(
+                '__selectInfo' => (object)array('selectComparisonSatisfied' => false),
                 'key' => $result
-            ])));
+            ))));
         }
     }
-    
+
 }

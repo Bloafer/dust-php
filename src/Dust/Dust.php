@@ -14,7 +14,7 @@ class Dust implements \Serializable {
 
     public $automaticFilters;
 
-    public $includedDirectories = [];
+    public $includedDirectories = array();
 
     public $autoloaderOverride;
 
@@ -26,32 +26,32 @@ class Dust implements \Serializable {
         if ($evaluator === null) $evaluator = new Evaluate\Evaluator($this);
         $this->parser = $parser;
         $this->evaluator = $evaluator;
-        $this->templates = [];
-        $this->filters = [
-            "s" => new Filter\SuppressEscape(),
-            "h" => new Filter\HtmlEscape(),
-            "j" => new Filter\JavaScriptEscape(),
-            "u" => new Filter\EncodeUri(),
-            "uc" => new Filter\EncodeUriComponent(),
-            "js" => new Filter\JsonEncode(),
-            "jp" => new Filter\JsonDecode()
-        ];
-        $this->helpers = [
-            "select" => new Helper\Select(),
-            "math" => new Helper\Math(),
-            "eq" => new Helper\Eq(),
-            "ne" => new Helper\Ne(),
-            "if" => new Helper\IfHelper(),
-            "lt" => new Helper\Lt(),
-            "lte" => new Helper\Lte(),
-            "gt" => new Helper\Gt(),
-            "gte" => new Helper\Gte(),
-            "default" => new Helper\DefaultHelper(),
-            "sep" => new Helper\Sep(),
-            "size" => new Helper\Size(),
-            "contextDump" => new Helper\ContextDump()
-        ];
-        $this->automaticFilters = [$this->filters['h']];
+        $this->templates = array();
+        $this->filters = array(
+            "s"     => new Filter\SuppressEscape(),
+            "h"     => new Filter\HtmlEscape(),
+            "j"     => new Filter\JavaScriptEscape(),
+            "u"     => new Filter\EncodeUri(),
+            "uc"    => new Filter\EncodeUriComponent(),
+            "js"    => new Filter\JsonEncode(),
+            "jp"    => new Filter\JsonDecode()
+        );
+        $this->helpers = array(
+            "select"        => new Helper\Select(),
+            "math"          => new Helper\Math(),
+            "eq"            => new Helper\Eq(),
+            "ne"            => new Helper\Ne(),
+            "if"            => new Helper\IfHelper(),
+            "lt"            => new Helper\Lt(),
+            "lte"           => new Helper\Lte(),
+            "gt"            => new Helper\Gt(),
+            "gte"           => new Helper\Gte(),
+            "default"       => new Helper\DefaultHelper(),
+            "sep"           => new Helper\Sep(),
+            "size"          => new Helper\Size(),
+            "contextDump"   => new Helper\ContextDump()
+        );
+        $this->automaticFilters = array($this->filters['h']);
 
         if (is_array($options)) {
             if (isset($options['extension'])) {
